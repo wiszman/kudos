@@ -1,0 +1,54 @@
+<h2>Organization</h2>
+<%= current_user.organization.name %>
+<p>
+<h2>My Received Kudos</h2>
+<table cellpadding="5">
+  <tr>
+    <th>Given by</th><th>Message</th><th>Date</th>
+  </tr>
+  <tr>
+  <% current_user.get_kudos.each do |kudo| %>
+    <tr>
+      <td><%= kudo.given_by.name %></td>
+      <td><%= kudo.message %></td>
+      <td><%= kudo.created_at %></td>
+    </tr>
+  <% end %>
+</table>
+<p>
+<h2>Fellow users</h2>
+<p>I have given <span id="total_kudos"><%= pluralize(current_user.kudos_given_by_user_in_past_week, "kudo") %></span> this week.</p>
+<span id="max_kudos_message">
+  <% if !current_user.can_give_kudos? %>
+    I can't give any more kudos this week.
+  <% end %>
+</span>
+</p>
+<table cellpadding="5">
+  <tr>
+    <th>Name</th><th>Kudos given by me this week</th>
+  </tr>
+  <% @users.each do |user| %>
+    <% if user.id == current_user.id %>
+      <% next %>
+    <% end %>
+    <tr>
+      <td><%= user.name %></td>
+      <td id="user_kudos_<%= user.id %>">
+        <%= current_user.kudos_given_by_user_in_past_week(user.id) %>
+      </td>
+        <td class="give_kudos_links">
+          <% if current_user.can_give_kudos? %>
+            <a href="javascript:void(0);" onclick="$('#give_kudo_form_<%= user.id %>').show(); $('#give_kudo_form_<%= user.id %> #message').focus();">Give Kudo!</a>
+          <% end %>
+        </td>
+        <td>
+          <%= form_tag(give_kudo_path, :remote => true, :id=>"give_kudo_form_#{user.id}", :class=> "give_kudo_form") do %>
+            <%= text_area_tag :message  %>
+            <%= hidden_field_tag :recipient_id, user.id %>
+            <%= submit_tag 'Save' %>
+          <% end %>
+        </td>
+    </tr>
+  <% end %>
+</table>

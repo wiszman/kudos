@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+ .give_kudo_form {
+   display: none;
+ }

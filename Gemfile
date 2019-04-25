@@ -63,12 +63,12 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'devise'
 gem 'high_voltage'
 gem 'jquery-rails'
-gem 'mysql2', '~> 0.3.18'
+gem 'mysql2', '~> 0.5.2'
 
 group :development do
   gem 'better_errors'
   gem 'hub', :require=>nil
   gem 'rails_apps_pages'
   gem 'rails_layout'
+  gem 'faker'
 end
-

@@ -1,0 +1,8 @@
+$("#user_kudos_<%= @recipient_id %>").html("<%= @kudos_given %>")
+$("#give_kudo_form_<%= @recipient_id %>").hide()
+$("#total_kudos").html('<%= pluralize(@total_kudos_given, "kudo") %>')
+<% if @max_kudos_message %>
+  $("#max_kudos_message").html('I can\'t give any more kudos this week.')
+  $(".give_kudos_links").hide()
+  $(".give_kudo_form").hide()
+<% end %>
