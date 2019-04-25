@@ -6,12 +6,13 @@ namespace :db do
 
   desc "Generate fake data"
   task fakeit: :environment do
-    num_companies = 100
+    num_companies = 20
     min_num_users_per_company = 10
-    max_num_users_per_company = 50
-    num_kudos_per_company = 50
-
+    max_num_users_per_company = 30
+    num_kudos_per_user = 2
     company_users = {}
+    kudos_given = {}
+
     org_id = 1
     num_companies.times do
       Organization.create!(
@@ -34,12 +35,15 @@ namespace :db do
 
     org_id = 1
     num_companies.times do
-      # Assign each company an average of 3 kudos/person
-      num_kudos = company_users[org_id] * 3
+      # Seed each company with an average of num_kudos_per_user and max of MAX_WEEKLY_KUDOS kudos/person
+      num_kudos = company_users[org_id] * num_kudos_per_user
       num_kudos.times do
         # Only allow kudos between 2 different users in same org
         user_id_list = User.where(organization: org_id).map(&:id)
         given_by = user_id_list[rand(0..user_id_list.length-1)]
+        if kudos_given.key?(given_by) && kudos_given[given_by] >= User::MAX_WEEKLY_KUDOS
+          next
+        end
         user_id_list.delete(given_by)
         given_to = user_id_list[rand(0..user_id_list.length-1)]
         Kudo.create!(
@@ -47,6 +51,11 @@ namespace :db do
           given_to: User.find(given_to),
           message: Faker::Lorem.sentence
         )
+        if kudos_given.key?(given_by)
+          kudos_given[given_by] += 1
+        else
+          kudos_given[given_by] = 1
+        end
       end
       org_id += 1
     end
