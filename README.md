@@ -1,49 +1,34 @@
-Kudos
-================
+To Run:
 
-This application was generated with the [rails_apps_composer](https://github.com/RailsApps/rails_apps_composer) gem
-provided by the [RailsApps Project](http://railsapps.github.io/).
+1. Create database `kudos_development` with username `kudos` and no password
 
-Rails Composer is supported by developers who purchase our RailsApps tutorials.
+2. Install gems
 
-Problems? Issues?
------------
+`# bundle install`
 
-Need help? Ask on Stack Overflow with the tag 'railsapps.'
+3. Run migrations
 
-Your application contains diagnostics in the README file. Please provide a copy of the README file when reporting any issues.
+`# rake db:migrate`
 
-If the application doesn't work as expected, please [report an issue](https://github.com/RailsApps/rails_apps_composer/issues)
-and include the diagnostics.
+4. Generate random data
 
-Ruby on Rails
--------------
+`# rake db:repopulate`
+
+5. Start app
+
+`# rails s`
+
+6. Navigate to `localhost:3000`
+
+7. Select any email address from users table to login, password = `password`
+
+
+Notes:
+
+Kudos for the week are calculated based on midnight Sunday morning as the start of a given week.
+
 
 This application requires:
 
 - Ruby 2.5.1
 - Rails 5.2.3
-
-Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
-
-Getting Started
----------------
-
-Documentation and Support
--------------------------
-
-Issues
--------------
-
-Similar Projects
-----------------
-
-Contributing
-------------
-
-Credits
--------
-
-License
--------
-# kudos
