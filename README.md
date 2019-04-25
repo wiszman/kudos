@@ -2,17 +2,25 @@ To Run:
 
 1. Create database `kudos_development` with username `kudos` and no password
 
-2. Generate random data
+2. Install gems
+
+`# bundle install`
+
+3. Run migrations
+
+`# rake db:migrate`
+
+4. Generate random data
 
 `# rake db:repopulate`
 
-3. Start app
+5. Start app
 
 `# rails s`
 
-4. Navigate to `localhost:3000`
+6. Navigate to `localhost:3000`
 
-5. Select any email address from users table to login, password = `password`
+7. Select any email address from users table to login, password = `password`
 
 
 Notes:
